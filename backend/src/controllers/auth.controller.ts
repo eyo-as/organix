@@ -13,6 +13,12 @@ const registerUser = async (req: Request, res: Response) => {
     const { email, username, password } = req.body;
     const exists = await isUserExist(email, username);
 
+    if (!email || !username || !password) {
+      return res.status(400).json({
+        message: "Please fill the required fields",
+      });
+    }
+
     if (exists) {
       return res.status(409).json({
         message: "Email or Username already exist",
@@ -42,6 +48,12 @@ const loginUser = async (req: Request, res: Response) => {
     const { email, password } = req.body;
 
     const user = await findUserByEmail(email);
+
+    if (!email || !password) {
+      return res.status(400).json({
+        message: "Please fill the required fields",
+      });
+    }
 
     if (!user) {
       return res.status(404).json({
