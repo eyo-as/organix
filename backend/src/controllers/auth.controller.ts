@@ -32,7 +32,7 @@ const registerUser = async (req: Request, res: Response) => {
   } catch (error) {
     res.status(500).json({
       message: "Something went wrong",
-      error,
+      error: "registering error" + error,
     });
   }
 };
@@ -78,7 +78,7 @@ const loginUser = async (req: Request, res: Response) => {
   } catch (error) {
     res.status(500).json({
       message: "Something went wrong",
-      error,
+      error: "login error" + error,
     });
   }
 };
