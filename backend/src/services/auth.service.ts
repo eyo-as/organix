@@ -1,7 +1,12 @@
 import { User, IUser } from "../models/User";
+import bcrypt from "bcrypt";
 
 const createUser = async (userData: Partial<IUser>): Promise<IUser> => {
-  const user = new User(userData);
+  const hashedPass = await bcrypt.hash(userData.password!, 10);
+  const user = new User({
+    ...userData,
+    password: hashedPass,
+  });
 
   return await user.save();
 };
