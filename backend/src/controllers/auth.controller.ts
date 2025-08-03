@@ -2,8 +2,8 @@ import { Request, Response } from "express";
 import {
   createUser,
   findUserByEmail,
-  findUserById,
   isUserExist,
+  getAllUserService,
 } from "../services/auth.service";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
@@ -95,4 +95,25 @@ const loginUser = async (req: Request, res: Response) => {
   }
 };
 
-export { registerUser, loginUser };
+const getAllUsers = async (_req: Request, res: Response) => {
+  try {
+    const users = await getAllUserService();
+    if (!users) {
+      return res.status(404).json({
+        message: "Error fetching user data.",
+      });
+    }
+
+    res.status(200).json({
+      message: "Users retrived successfully.",
+      users: users,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: "Something went wrong",
+      error: "User fetching error: " + error,
+    });
+  }
+};
+
+export { registerUser, loginUser, getAllUsers };

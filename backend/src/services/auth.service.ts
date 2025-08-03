@@ -1,3 +1,4 @@
+import { Task } from "../models/Task";
 import { User, IUser } from "../models/User";
 import bcrypt from "bcrypt";
 
@@ -28,4 +29,15 @@ const isUserExist = async (
   return !!existing;
 };
 
-export { createUser, findUserByEmail, findUserById, isUserExist };
+const getAllUserService = async () => {
+  const userList = await Task.find({});
+
+  return userList;
+};
+export {
+  createUser,
+  findUserByEmail,
+  findUserById,
+  isUserExist,
+  getAllUserService,
+};
