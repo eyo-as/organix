@@ -1,4 +1,3 @@
-import { Task } from "../models/Task";
 import { User, IUser } from "../models/User";
 import bcrypt from "bcrypt";
 
@@ -29,15 +28,27 @@ const isUserExist = async (
   return !!existing;
 };
 
-const getAllUserService = async () => {
-  const userList = await Task.find({});
+const getAllUserService = async (): Promise<IUser[]> => {
+  const userList = await User.find({});
+
+  if (!userList) throw Error("User fetching error");
 
   return userList;
 };
+
+const getUserByIdService = async (userId: string): Promise<IUser> => {
+  const user = await User.findById(userId);
+
+  if (!user) throw Error("User fetching error");
+
+  return user;
+};
+
 export {
   createUser,
   findUserByEmail,
   findUserById,
   isUserExist,
   getAllUserService,
+  getUserByIdService,
 };

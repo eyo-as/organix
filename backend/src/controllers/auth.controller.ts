@@ -4,6 +4,7 @@ import {
   findUserByEmail,
   isUserExist,
   getAllUserService,
+  getUserByIdService,
 } from "../services/auth.service";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
@@ -116,4 +117,27 @@ const getAllUsers = async (_req: Request, res: Response) => {
   }
 };
 
-export { registerUser, loginUser, getAllUsers };
+const getUserById = async (req: Request, res: Response) => {
+  try {
+    const userId = req.params.id;
+    const user = await getUserByIdService(userId);
+
+    if (!user) {
+      return res.status(404).json({
+        message: "User not found.",
+      });
+    }
+
+    res.status(200).json({
+      message: "User retrived successfully.",
+      user: user,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: "Something went wrong",
+      error: "User fetching error: " + error,
+    });
+  }
+};
+
+export { registerUser, loginUser, getAllUsers, getUserById };
