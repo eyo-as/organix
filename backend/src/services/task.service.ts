@@ -32,9 +32,17 @@ const editTaskService = async (
   return newTask;
 };
 
+const deleteTaskService = async (taskId: string) => {
+  const deletedTask = await Task.findOneAndDelete({ _id: taskId });
+
+  if (!deletedTask) throw Error("Delete failed");
+  return;
+};
+
 export {
   createTaskService,
   getAllTasksService,
   getTaskByIdService,
   editTaskService,
+  deleteTaskService,
 };

@@ -4,6 +4,7 @@ import {
   editTaskService,
   getAllTasksService,
   getTaskByIdService,
+  deleteTaskService,
 } from "../services/task.service";
 
 const createTask = async (req: Request, res: Response) => {
@@ -101,4 +102,28 @@ const updateTask = async (req: Request, res: Response) => {
   }
 };
 
-export { createTask, getAllTask, getSingleTaskById, updateTask };
+const deleteTask = async (req: Request, res: Response) => {
+  try {
+    const taskId = req.params.id;
+    const task = await getTaskByIdService(taskId);
+
+    if (!task) {
+      return res.status(404).json({
+        message: "Task not found.",
+      });
+    }
+
+    await deleteTaskService(taskId);
+
+    res.status(201).json({
+      message: "Task deleted successfully.",
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: "Something went wrong",
+      error: "Deleting task error:" + error,
+    });
+  }
+};
+
+export { createTask, getAllTask, getSingleTaskById, updateTask, deleteTask };
