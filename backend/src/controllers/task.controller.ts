@@ -59,7 +59,7 @@ const getSingleTaskById = async (req: Request, res: Response) => {
 
     if (!task) {
       return res.status(404).json({
-        message: "No task found.",
+        message: "Task not found.",
       });
     }
 
@@ -97,7 +97,7 @@ const updateTask = async (req: Request, res: Response) => {
   } catch (error) {
     res.status(500).json({
       message: "Something went wrong",
-      error: "Updating task by ID error:" + error,
+      error: "Updating task error:" + error,
     });
   }
 };
@@ -121,7 +121,7 @@ const deleteTask = async (req: Request, res: Response) => {
   } catch (error) {
     res.status(500).json({
       message: "Something went wrong",
-      error: "Deleting task error:" + error,
+      error: "Deleting task error: " + error,
     });
   }
 };

@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import { Task, ITask } from "../models/Task";
 
 const createTaskService = async (taskData: Partial<ITask>): Promise<ITask> => {
@@ -10,13 +11,12 @@ const getAllTasksService = async () => {
   return tasks;
 };
 
-const getTaskByIdService = async (taskId: string): Promise<ITask> => {
+const getTaskByIdService = async (taskId: string): Promise<ITask | null> => {
+  if (!mongoose.Types.ObjectId.isValid(taskId)) {
+    return null;
+  }
   const task = await Task.findById(taskId);
 
-  if (!task) {
-    console.log("Task not found");
-  }
-  if (!task) throw new Error("Update failed");
   return task;
 };
 
