@@ -10,4 +10,13 @@ const getAllTasks = async () => {
   return tasks;
 };
 
-export { createTask, getAllTasks };
+const getTaskById = async (taskId: string): Promise<ITask> => {
+  const task = await Task.findById(taskId);
+
+  if (!task) {
+    console.log("Task not found");
+  }
+  return task as ITask;
+};
+
+export { createTask, getAllTasks, getTaskById };

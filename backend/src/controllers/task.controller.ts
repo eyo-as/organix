@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { createTask, getAllTasks } from "../services/task.service";
+import { createTask, getAllTasks, getTaskById } from "../services/task.service";
 
 const createNewTask = async (req: Request, res: Response) => {
   try {
@@ -26,7 +26,7 @@ const createNewTask = async (req: Request, res: Response) => {
   } catch (error) {
     res.status(500).json({
       message: "Something went wrong",
-      error: "task creation error" + error,
+      error: "Task creation error:" + error,
     });
   }
 };
@@ -41,9 +41,32 @@ const getAllTask = async (_req: Request, res: Response) => {
   } catch (error) {
     res.status(500).json({
       message: "Something went wrong",
-      error: "retriving task error" + error,
+      error: "Retriving task error: " + error,
     });
   }
 };
 
-export { createNewTask, getAllTask };
+const getSingleTaskById = async (req: Request, res: Response) => {
+  try {
+    const taskId = req.params.id;
+    const task = await getTaskById(taskId);
+
+    if (!task) {
+      return res.status(404).json({
+        message: "No task found.",
+      });
+    }
+
+    res.status(200).json({
+      message: "Task retrived successfull.",
+      task: task,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: "Something went wrong",
+      error: "Retrieving task by ID error:" + error,
+    });
+  }
+};
+
+export { createNewTask, getAllTask, getSingleTaskById };
