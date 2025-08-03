@@ -90,7 +90,7 @@ const updateTask = async (req: Request, res: Response) => {
 
     const newTask = await editTaskService(taskId, taskData);
 
-    res.status(201).json({
+    res.status(200).json({
       message: "Task updated successfully.",
       task: newTask,
     });
@@ -115,7 +115,7 @@ const deleteTask = async (req: Request, res: Response) => {
 
     await deleteTaskService(taskId);
 
-    res.status(201).json({
+    res.status(200).json({
       message: "Task deleted successfully.",
     });
   } catch (error) {

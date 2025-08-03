@@ -6,6 +6,7 @@ import {
   getAllUserService,
   getUserByIdService,
   editUserService,
+  deleteUserService,
 } from "../services/auth.service";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
@@ -167,4 +168,33 @@ const editUser = async (req: Request, res: Response) => {
   }
 };
 
-export { registerUser, loginUser, getAllUsers, getUserById, editUser };
+const deleteUser = async (req: Request, res: Response) => {
+  try {
+    const userId = req.params.id;
+
+    if (!userId) {
+      return res.status(404).json({
+        message: "User not found.",
+      });
+    }
+
+    await deleteUserService(userId);
+
+    res.status(200).json({
+      message: "User deleted successfully.",
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: "Error deleting user: " + error,
+    });
+  }
+};
+
+export {
+  registerUser,
+  loginUser,
+  getAllUsers,
+  getUserById,
+  editUser,
+  deleteUser,
+};

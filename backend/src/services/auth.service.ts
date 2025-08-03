@@ -57,6 +57,14 @@ const editUserService = async (
   return newUser;
 };
 
+const deleteUserService = async (userId: string): Promise<IUser> => {
+  const user = await User.findByIdAndDelete({ _id: userId });
+
+  if (!user) throw Error("Error deleting user.");
+
+  return user;
+};
+
 export {
   createUser,
   findUserByEmail,
@@ -65,4 +73,5 @@ export {
   getAllUserService,
   getUserByIdService,
   editUserService,
+  deleteUserService,
 };
