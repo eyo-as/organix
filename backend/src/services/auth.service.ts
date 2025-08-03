@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import { User, IUser } from "../models/User";
 import bcrypt from "bcrypt";
 
@@ -36,10 +37,12 @@ const getAllUserService = async (): Promise<IUser[]> => {
   return userList;
 };
 
-const getUserByIdService = async (userId: string): Promise<IUser> => {
-  const user = await User.findById(userId);
+const getUserByIdService = async (userId: string): Promise<IUser | null> => {
+  if (!mongoose.Types.ObjectId.isValid(userId)) {
+    return null;
+  }
 
-  if (!user) throw Error("User fetching error");
+  const user = await User.findById(userId);
 
   return user;
 };
@@ -47,20 +50,16 @@ const getUserByIdService = async (userId: string): Promise<IUser> => {
 const editUserService = async (
   userId: string,
   userData: Partial<IUser>
-): Promise<IUser> => {
+): Promise<IUser | null> => {
   const newUser = await User.findByIdAndUpdate({ _id: userId }, userData, {
     new: true,
   });
 
-  if (!newUser) throw Error("Error updating user.");
-
   return newUser;
 };
 
-const deleteUserService = async (userId: string): Promise<IUser> => {
+const deleteUserService = async (userId: string): Promise<IUser | null> => {
   const user = await User.findByIdAndDelete({ _id: userId });
-
-  if (!user) throw Error("Error deleting user.");
 
   return user;
 };

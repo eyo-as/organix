@@ -171,8 +171,9 @@ const editUser = async (req: Request, res: Response) => {
 const deleteUser = async (req: Request, res: Response) => {
   try {
     const userId = req.params.id;
+    const user = await getUserByIdService(userId);
 
-    if (!userId) {
+    if (!user) {
       return res.status(404).json({
         message: "User not found.",
       });
