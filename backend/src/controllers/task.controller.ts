@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { createTask } from "../services/task.service";
+import { createTask, getAllTasks } from "../services/task.service";
 
 const createNewTask = async (req: Request, res: Response) => {
   try {
@@ -31,4 +31,19 @@ const createNewTask = async (req: Request, res: Response) => {
   }
 };
 
-export { createNewTask };
+const getAllTask = async (_req: Request, res: Response) => {
+  try {
+    const tasks = await getAllTasks();
+    res.status(200).json({
+      message: "tasks retrived successfully.",
+      tasks: tasks,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: "Something went wrong",
+      error: "retriving task error" + error,
+    });
+  }
+};
+
+export { createNewTask, getAllTask };

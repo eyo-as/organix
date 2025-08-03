@@ -5,4 +5,9 @@ const createTask = async (taskData: Partial<ITask>): Promise<ITask> => {
   return await task.save();
 };
 
-export { createTask };
+const getAllTasks = async () => {
+  const tasks = await Task.find({});
+  return tasks;
+};
+
+export { createTask, getAllTasks };
