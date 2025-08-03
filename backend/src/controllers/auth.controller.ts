@@ -153,12 +153,20 @@ const editUser = async (req: Request, res: Response) => {
       });
     }
 
-    const userData = req.body;
+    const prevPassword = req.body.password;
+    const hashedPassword = await bcrypt.hash(prevPassword, 10);
+
+    const userData = { ...req.body, password: hashedPassword };
+
     const newUser = await editUserService(userId, userData);
 
     res.status(200).json({
       message: "User updated successfully.",
-      user: newUser,
+      user: {
+        id: newUser?.id,
+        email: newUser?.email,
+        username: newUser?.username,
+      },
     });
   } catch (error) {
     res.status(500).json({
