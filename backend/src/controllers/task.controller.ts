@@ -3,15 +3,22 @@ import { createTask } from "../services/task.service";
 
 const createNewTask = async (req: Request, res: Response) => {
   try {
-    const { title, description, status, priority, deuDate } = req.body;
+    const { title, description, status, priority, dueDate } = req.body;
 
-    if (!title || !description || !status || !priority || !deuDate) {
+    if (!title || !status || !priority) {
       return res.status(400).json({
-        message: "Please fill all fileds.",
+        message: "Please fill required fields.",
       });
     }
 
-    const newTask = await createTask(req.body);
+    const newTask = await createTask({
+      title,
+      description,
+      status,
+      priority,
+      dueDate,
+    });
+
     return res.status(201).json({
       message: "Task created.",
       task: newTask,
@@ -19,7 +26,7 @@ const createNewTask = async (req: Request, res: Response) => {
   } catch (error) {
     res.status(500).json({
       message: "Something went wrong",
-      error: "creating cast error" + error,
+      error: "task creation error" + error,
     });
   }
 };

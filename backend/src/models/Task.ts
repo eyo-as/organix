@@ -6,8 +6,6 @@ export interface ITask extends Document {
   status: "pending" | "in-progress" | "completed";
   dueDate?: Date;
   priority: "low" | "medium" | "high";
-  createdBy: mongoose.Types.ObjectId;
-  assignedTo?: mongoose.Types.ObjectId;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -42,15 +40,6 @@ const taskSchema = new Schema<ITask>(
         },
         message: "Due date must be in the future",
       },
-    },
-    createdBy: {
-      type: Schema.Types.ObjectId,
-      ref: "User",
-      required: true,
-    },
-    assignedTo: {
-      type: Schema.Types.ObjectId,
-      ref: "User",
     },
   },
   {

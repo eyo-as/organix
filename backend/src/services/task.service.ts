@@ -1,8 +1,7 @@
 import { Task, ITask } from "../models/Task";
 
-const createTask = async (taskData: string): Promise<ITask> => {
+const createTask = async (taskData: Partial<ITask>): Promise<ITask> => {
   const task = new Task(taskData);
-
   return await task.save();
 };
 
