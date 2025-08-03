@@ -44,6 +44,19 @@ const getUserByIdService = async (userId: string): Promise<IUser> => {
   return user;
 };
 
+const editUserService = async (
+  userId: string,
+  userData: Partial<IUser>
+): Promise<IUser> => {
+  const newUser = await User.findByIdAndUpdate({ _id: userId }, userData, {
+    new: true,
+  });
+
+  if (!newUser) throw Error("Error updating user.");
+
+  return newUser;
+};
+
 export {
   createUser,
   findUserByEmail,
@@ -51,4 +64,5 @@ export {
   isUserExist,
   getAllUserService,
   getUserByIdService,
+  editUserService,
 };

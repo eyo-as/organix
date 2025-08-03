@@ -5,6 +5,7 @@ import {
   isUserExist,
   getAllUserService,
   getUserByIdService,
+  editUserService,
 } from "../services/auth.service";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
@@ -140,4 +141,30 @@ const getUserById = async (req: Request, res: Response) => {
   }
 };
 
-export { registerUser, loginUser, getAllUsers, getUserById };
+const editUser = async (req: Request, res: Response) => {
+  try {
+    const userId = req.params.id;
+    const user = await getUserByIdService(userId);
+
+    if (!user) {
+      return res.status(404).json({
+        message: "User not found.",
+      });
+    }
+
+    const userData = req.body;
+    const newUser = await editUserService(userId, userData);
+
+    res.status(404).json({
+      message: "User updated successfully.",
+      user: newUser,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: "Something went wrong",
+      error: "User updating error: " + error,
+    });
+  }
+};
+
+export { registerUser, loginUser, getAllUsers, getUserById, editUser };
