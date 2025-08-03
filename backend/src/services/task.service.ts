@@ -1,22 +1,40 @@
 import { Task, ITask } from "../models/Task";
 
-const createTask = async (taskData: Partial<ITask>): Promise<ITask> => {
+const createTaskService = async (taskData: Partial<ITask>): Promise<ITask> => {
   const task = new Task(taskData);
   return await task.save();
 };
 
-const getAllTasks = async () => {
+const getAllTasksService = async () => {
   const tasks = await Task.find({});
   return tasks;
 };
 
-const getTaskById = async (taskId: string): Promise<ITask> => {
+const getTaskByIdService = async (taskId: string): Promise<ITask> => {
   const task = await Task.findById(taskId);
 
   if (!task) {
     console.log("Task not found");
   }
-  return task as ITask;
+  if (!task) throw new Error("Update failed");
+  return task;
 };
 
-export { createTask, getAllTasks, getTaskById };
+const editTaskService = async (
+  taskId: string,
+  taskData: Partial<ITask>
+): Promise<ITask> => {
+  const newTask = await Task.findOneAndUpdate({ _id: taskId }, taskData, {
+    new: true,
+  });
+
+  if (!newTask) throw new Error("Update failed");
+  return newTask;
+};
+
+export {
+  createTaskService,
+  getAllTasksService,
+  getTaskByIdService,
+  editTaskService,
+};

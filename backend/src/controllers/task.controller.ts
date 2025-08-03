@@ -1,7 +1,12 @@
 import { Request, Response } from "express";
-import { createTask, getAllTasks, getTaskById } from "../services/task.service";
+import {
+  createTaskService,
+  editTaskService,
+  getAllTasksService,
+  getTaskByIdService,
+} from "../services/task.service";
 
-const createNewTask = async (req: Request, res: Response) => {
+const createTask = async (req: Request, res: Response) => {
   try {
     const { title, description, status, priority, dueDate } = req.body;
 
@@ -11,7 +16,7 @@ const createNewTask = async (req: Request, res: Response) => {
       });
     }
 
-    const newTask = await createTask({
+    const newTask = await createTaskService({
       title,
       description,
       status,
@@ -33,7 +38,7 @@ const createNewTask = async (req: Request, res: Response) => {
 
 const getAllTask = async (_req: Request, res: Response) => {
   try {
-    const tasks = await getAllTasks();
+    const tasks = await getAllTasksService();
     res.status(200).json({
       message: "tasks retrived successfully.",
       tasks: tasks,
@@ -49,7 +54,7 @@ const getAllTask = async (_req: Request, res: Response) => {
 const getSingleTaskById = async (req: Request, res: Response) => {
   try {
     const taskId = req.params.id;
-    const task = await getTaskById(taskId);
+    const task = await getTaskByIdService(taskId);
 
     if (!task) {
       return res.status(404).json({
@@ -69,4 +74,31 @@ const getSingleTaskById = async (req: Request, res: Response) => {
   }
 };
 
-export { createNewTask, getAllTask, getSingleTaskById };
+const updateTask = async (req: Request, res: Response) => {
+  try {
+    const taskId = req.params.id;
+    const task = await getTaskByIdService(taskId);
+
+    if (!task) {
+      return res.status(404).json({
+        message: "Task not found.",
+      });
+    }
+
+    const taskData = req.body;
+
+    const newTask = await editTaskService(taskId, taskData);
+
+    res.status(201).json({
+      message: "Task updated successfully.",
+      task: newTask,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: "Something went wrong",
+      error: "Updating task by ID error:" + error,
+    });
+  }
+};
+
+export { createTask, getAllTask, getSingleTaskById, updateTask };
