@@ -119,8 +119,17 @@ const getAllUsers = async (_req: Request, res: Response) => {
   }
 };
 
-const getUserById = async (req: Request, res: Response) => {
+const getUserById = async (
+  req: Request & { userId?: string },
+  res: Response
+) => {
   try {
+    if (req.userId !== req.params.id) {
+      return res.status(403).json({
+        message: "Forbidden: Access denied.",
+      });
+    }
+
     const userId = req.params.id;
     const user = await getUserByIdService(userId);
 
@@ -142,8 +151,14 @@ const getUserById = async (req: Request, res: Response) => {
   }
 };
 
-const editUser = async (req: Request, res: Response) => {
+const editUser = async (req: Request & { userId?: string }, res: Response) => {
   try {
+    if (req.userId !== req.params.id) {
+      return res.status(403).json({
+        message: "Forbidden: Access denied.",
+      });
+    }
+
     const userId = req.params.id;
     const user = await getUserByIdService(userId);
 
@@ -176,8 +191,17 @@ const editUser = async (req: Request, res: Response) => {
   }
 };
 
-const deleteUser = async (req: Request, res: Response) => {
+const deleteUser = async (
+  req: Request & { userId?: string },
+  res: Response
+) => {
   try {
+    if (req.userId !== req.params.id) {
+      return res.status(403).json({
+        message: "Forbidden: Access denied.",
+      });
+    }
+
     const userId = req.params.id;
     const user = await getUserByIdService(userId);
 
