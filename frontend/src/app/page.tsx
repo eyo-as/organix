@@ -4,7 +4,7 @@ const page = () => {
   return (
     <>
       <div>
-        <h1>Hello World!</h1>
+        <h1 className="text-4xl font-bold text-center p-4">Organix</h1>
       </div>
     </>
   );

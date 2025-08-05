@@ -3,7 +3,9 @@ import "./globals.css";
 import Footer from "@/components/layout/Footer";
 import Nav from "@/components/layout/Nav";
 import { ThemeProvider } from "@/components/ui/theme-provider";
-import { ModeToggle } from "../components/ui/ModeToggle";
+import { Inter } from "next/font/google";
+
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Organix",
@@ -19,8 +21,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body>
+    <html lang="en" suppressHydrationWarning>
+      <body className={inter.className}>
         <div>
           <ThemeProvider
             attribute="class"
@@ -28,7 +30,6 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <ModeToggle />
             <Nav />
             {children}
             <Footer />
