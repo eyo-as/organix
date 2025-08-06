@@ -15,16 +15,13 @@ const NoSSR = dynamic(
 
 const Nav = () => {
   return (
-    <nav className="w-full border-b shadow-sm px-2 py-3 flex items-center justify-between">
+    <nav className="w-full border-b shadow-sm px-4 py-3 flex items-center justify-between">
       <Link href="/" className="text-xl font-bold">
         Organix
       </Link>
       <div className="space-x-2">
         <Link href="/login">
           <Button variant="outline">Login</Button>
-        </Link>
-        <Link href="/register">
-          <Button>Sign Up</Button>
         </Link>
         <span>
           <NoSSR />
