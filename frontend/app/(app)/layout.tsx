@@ -10,7 +10,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       <AppSidebar />
       <SidebarInset>
         <AppHeader />
-        <div className="flex flex-1 flex-col bg-white p-4 text-[#212121] dark:bg-[#212121] dark:text-white">
+        <div className="flex flex-1 flex-col bg-white p-4 text-[#000] dark:bg-[#000] dark:text-white">
           {children}
         </div>
         <Toaster />

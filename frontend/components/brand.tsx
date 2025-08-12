@@ -1,7 +1,7 @@
 export const BRAND = {
   name: "Organix",
   colors: {
-    black: "#212121",
+    black: "#000",
     white: "#FFFFFF",
   },
 }

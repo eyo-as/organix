@@ -37,7 +37,7 @@ export default function TasksPage() {
   const visible = tasks.filter((t) => (filter === "all" ? true : filter === "open" ? !t.done : !!t.done))
 
   return (
-    <div className="mx-auto w-full max-w-3xl space-y-4 text-[#212121] dark:text-white">
+    <div className="mx-auto w-full max-w-3xl space-y-4 text-[#000] dark:text-white">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <h2 className="text-2xl font-semibold">Tasks</h2>
         <div className="flex items-center gap-2">
@@ -46,8 +46,8 @@ export default function TasksPage() {
             onClick={() => setFilter("all")}
             className={`${
               filter === "all"
-                ? "bg-[#212121] text-white hover:bg-[#212121]/90 dark:bg-white dark:text-[#212121] dark:hover:bg-white/90"
-                : "border-[#212121] text-[#212121] hover:bg-[#212121] hover:text-white dark:border-white dark:text-white dark:hover:bg-white dark:hover:text-[#212121]"
+                ? "bg-[#000] text-white hover:bg-[#000]/90 dark:bg-white dark:text-[#000] dark:hover:bg-white/90"
+                : "border-[#000] text-[#000] hover:bg-[#000] hover:text-white dark:border-white dark:text-white dark:hover:bg-white dark:hover:text-[#000]"
             }`}
           >
             All
@@ -57,8 +57,8 @@ export default function TasksPage() {
             onClick={() => setFilter("open")}
             className={`${
               filter === "open"
-                ? "bg-[#212121] text-white hover:bg-[#212121]/90 dark:bg-white dark:text-[#212121] dark:hover:bg-white/90"
-                : "border-[#212121] text-[#212121] hover:bg-[#212121] hover:text-white dark:border-white dark:text-white dark:hover:bg-white dark:hover:text-[#212121]"
+                ? "bg-[#000] text-white hover:bg-[#000]/90 dark:bg-white dark:text-[#000] dark:hover:bg-white/90"
+                : "border-[#000] text-[#000] hover:bg-[#000] hover:text-white dark:border-white dark:text-white dark:hover:bg-white dark:hover:text-[#000]"
             }`}
           >
             Open
@@ -68,8 +68,8 @@ export default function TasksPage() {
             onClick={() => setFilter("done")}
             className={`${
               filter === "done"
-                ? "bg-[#212121] text-white hover:bg-[#212121]/90 dark:bg-white dark:text-[#212121] dark:hover:bg-white/90"
-                : "border-[#212121] text-[#212121] hover:bg-[#212121] hover:text-white dark:border-white dark:text-white dark:hover:bg-white dark:hover:text-[#212121]"
+                ? "bg-[#000] text-white hover:bg-[#000]/90 dark:bg-white dark:text-[#000] dark:hover:bg-white/90"
+                : "border-[#000] text-[#000] hover:bg-[#000] hover:text-white dark:border-white dark:text-white dark:hover:bg-white dark:hover:text-[#000]"
             }`}
           >
             Done
@@ -77,7 +77,7 @@ export default function TasksPage() {
         </div>
       </div>
 
-      <Card className="border border-[#212121]/15 bg-white dark:border-white/20 dark:bg-[#212121]">
+      <Card className="border border-[#000]/15 bg-white dark:border-white/20 dark:bg-[#000]">
         <CardHeader className="pb-2">
           <CardTitle className="text-base">Quick add</CardTitle>
         </CardHeader>
@@ -87,11 +87,11 @@ export default function TasksPage() {
               placeholder="Add a task..."
               value={newTitle}
               onChange={(e) => setNewTitle(e.target.value)}
-              className="h-9 border-[#212121]/20"
+              className="h-9 border-[#000]/20"
             />
             <Button
               type="submit"
-              className="bg-[#212121] text-white hover:bg-[#212121]/90 dark:bg-white dark:text-[#212121] dark:hover:bg-white/90"
+              className="bg-[#000] text-white hover:bg-[#000]/90 dark:bg-white dark:text-[#000] dark:hover:bg-white/90"
             >
               Add
             </Button>
@@ -99,18 +99,18 @@ export default function TasksPage() {
         </CardContent>
       </Card>
 
-      <Card className="border border-[#212121]/15 bg-white dark:border-white/20 dark:bg-[#212121]">
+      <Card className="border border-[#000]/15 bg-white dark:border-white/20 dark:bg-[#000]">
         <CardHeader className="pb-2">
           <CardTitle className="text-base">List</CardTitle>
         </CardHeader>
         <CardContent className="p-0">
-          <ul className="divide-y divide-[#212121]/10 dark:divide-white/10">
+          <ul className="divide-y divide-[#000]/10 dark:divide-white/10">
             {visible.map((t) => (
               <li key={t.id} className="flex items-center gap-3 px-4 py-3">
                 <button
                   aria-label={t.done ? "Mark as not done" : "Mark as done"}
-                  className={`h-4 w-4 rounded-sm border border-[#212121] dark:border-white ${
-                    t.done ? "bg-[#212121] dark:bg-white" : "bg-transparent"
+                  className={`h-4 w-4 rounded-sm border border-[#000] dark:border-white ${
+                    t.done ? "bg-[#000] dark:bg-white" : "bg-transparent"
                   }`}
                   onClick={() => toggleDone(t.id)}
                 />
@@ -156,15 +156,15 @@ function InlineEditor({
   const [value, setValue] = React.useState(defaultValue)
   return (
     <div className="flex w-full items-center gap-2">
-      <Input value={value} onChange={(e) => setValue(e.target.value)} className="h-8 border-[#212121]/20" />
+      <Input value={value} onChange={(e) => setValue(e.target.value)} className="h-8 border-[#000]/20" />
       <Button
         size="sm"
         onClick={() => onSave(value)}
-        className="bg-[#212121] text-white hover:bg-[#212121]/90 dark:bg-white dark:text-[#212121] dark:hover:bg-white/90"
+        className="bg-[#000] text-white hover:bg-[#000]/90 dark:bg-white dark:text-[#000] dark:hover:bg-white/90"
       >
         Save
       </Button>
-      <Button size="sm" variant="ghost" onClick={onCancel} className="hover:bg-[#212121]/10 dark:hover:bg-white/10">
+      <Button size="sm" variant="ghost" onClick={onCancel} className="hover:bg-[#000]/10 dark:hover:bg-white/10">
         Cancel
       </Button>
     </div>
